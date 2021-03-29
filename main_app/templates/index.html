@@ -3,13 +3,13 @@
     <h1>Vinyl Collector</h1>
     <hr/>
     {% for v in vinyl %}
-    <div class="card">
-        <div class="card-content">
-        {{ v.name }}
-        {{ v.artist }}
-        {{ v.year }}
-        {{ v.description }}
+    <a href="{{v.id}}">
+        <div class="card">
+            <div class="card-content">
+            {{ v.title }} - 
+            {{ v.artist }}
+            </div>
         </div>
-    </div>
+    </a>
 {% endfor %}
 {% endblock %}

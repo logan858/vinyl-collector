@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{vinyl.title}}</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ vinyl.title }}</span>
+    <p>Title: {{ vinyl.title }}</p>
+    <p>Artist: {{ vinyl.artist}}</p>
+    <p>Released: {{ vinyl.release}}</p>
+    <p>Description: {{ vinyl.description }}</p>
+    
+  </div>
+</div>
+{% endblock %}
