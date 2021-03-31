@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1></h1>
+<form method="POST", action="/create/submit/">
+    {% csrf_token %}
+    Title: <input name="title">
+    Artist:<input name="artist">
+    Released:<input type="number" name="release">
+    Description:<input name="description">
+    <button type="submit">Add an album</button>
+</form>
+{% endblock %}

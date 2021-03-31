@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{vinyl.title}}</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ vinyl.title }}</span>
+    <form method="POST", action="/{{ vinyl.id }}/edit/submit/">
+        {% csrf_token %}
+        <p>Title: <input class="grey lighten-3" name="title" value="{{ vinyl.title }}"> {{ vinyl.title }}</p>
+        <p>Artist: <input class="grey lighten-3" name="artist" value="{{ vinyl.artist }}"> {{ vinyl.artist}}</p>
+        <p>Released: <input class="grey lighten-3" name="release" value="{{ vinyl.release }}"> {{ vinyl.release}}</p>
+        <p>Description: <input class="grey lighten-3" name="description" value="{{ vinyl.description}}"> {{ vinyl.description }}</p>
+        <p><button class='waves-effect waves-light btn'>Edit</button></p>
+    </form>
+  </div>
+</div>
+{% endblock %}

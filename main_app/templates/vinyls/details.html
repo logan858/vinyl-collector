@@ -10,7 +10,8 @@
     <p>Artist: {{ vinyl.artist}}</p>
     <p>Released: {{ vinyl.release}}</p>
     <p>Description: {{ vinyl.description }}</p>
-    
+    <p><a href="/{{ vinyl.id }}/edit/" class='waves-effect waves-light btn'>Edit</a></p>
+    <p><a href="/{{ vinyl.id }}/delete" class='waves-effect waves-light btn red'>Delete</a></p>
   </div>
 </div>
 {% endblock %}
