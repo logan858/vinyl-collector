@@ -10,5 +10,6 @@ urlpatterns = [
     path('<int:vinyl_id>/edit/', views.vinyl_edit, name="edit"),
     path('<int:vinyl_id>/edit/submit/', views.vinyl_submit, name="submit"),
     path('create/', views.create, name="create"),
-    path('create/submit/', views.create_submit, name="create_submit")
+    path('create/submit/', views.create_submit, name="create_submit"),
+    path('<int:vinyl_id>/add_listen/', views.add_listen, name="add_listen"),
 ]

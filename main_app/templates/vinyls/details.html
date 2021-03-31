@@ -3,15 +3,54 @@
 
 <h1>{{vinyl.title}}</h1>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ vinyl.title }}</span>
-    <p>Title: {{ vinyl.title }}</p>
-    <p>Artist: {{ vinyl.artist}}</p>
-    <p>Released: {{ vinyl.release}}</p>
-    <p>Description: {{ vinyl.description }}</p>
-    <p><a href="/{{ vinyl.id }}/edit/" class='waves-effect waves-light btn'>Edit</a></p>
-    <p><a href="/{{ vinyl.id }}/delete" class='waves-effect waves-light btn red'>Delete</a></p>
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ vinyl.title }}</span>
+        <p>Title: {{ vinyl.title }}</p>
+        <p>Artist: {{ vinyl.artist}}</p>
+        <p>Released: {{ vinyl.release}}</p>
+        <p>Description: {{ vinyl.description }}</p>
+        <p><a href="/{{ vinyl.id }}/edit/" class='waves-effect waves-light btn'>Edit</a></p>
+        <p><a href="/{{ vinyl.id }}/delete" class='waves-effect waves-light btn red'>Delete</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="col s6">
+    <form method="POST" action="{% url 'add_listen' vinyl.id %}">
+      {% csrf_token %}
+      {{ listen_form.as_p }}
+      <input type="submit" class="btn" value="Add a listen">
+    </form>
+    <br>
+    {% if vinyl.listen_count >= 10 %}
+      <div class="card-panel teal-text center-align">{{vinyl.title}} is a fave.</div>
+    {% else %}
+      <div class="card-panel red-text center-align">{{vinyl.title}} is not currently a fave.</div>
+    {% endif %}
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Last track</th></tr>
+      </thead>
+      <tbody>
+        {% for vin in vinyl.listen_set.all %}
+          <tr>
+            <td>{{vin.date}}</td>
+            <td>{{vin.track}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
+<script>
+  var dateEl = document.getElementById('id_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+</script>
 {% endblock %}

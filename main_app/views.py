@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Vinyl
 from django.views.generic import ListView
+from .forms import ListenForm
 # Create your views here.
 
 class VinylList(ListView):
@@ -16,8 +17,10 @@ def about(request):
 
 def vinyl_details(request, vinyl_id):
   found_vinyl = Vinyl.objects.get(id=vinyl_id)
+  listen_form = ListenForm()
   return render(request, 'vinyls/details.html', {
-    'vinyl': found_vinyl
+    'vinyl': found_vinyl,
+    'listen_form': listen_form,
   })
 
 def vinyl_delete(request, vinyl_id):
@@ -53,3 +56,11 @@ def create_submit(request):
     description=request.POST["description"],
   )
   return redirect('/')
+
+def add_listen(request, vinyl_id):
+  form = ListenForm(request.POST)
+  if form.is_valid():
+    new_listen = form.save(commit=False)
+    new_listen.vinyl_id = vinyl_id
+    new_listen.save()
+  return redirect(f"/{vinyl_id}", vinyl_id=vinyl_id)
