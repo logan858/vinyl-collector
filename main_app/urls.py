@@ -12,4 +12,6 @@ urlpatterns = [
     path('create/', views.create, name="create"),
     path('create/submit/', views.create_submit, name="create_submit"),
     path('<int:vinyl_id>/add_listen/', views.add_listen, name="add_listen"),
+    path('vinyl/<int:vinyl_id>/assoc/<int:store_id>/', views.assoc_store, name="assoc_store"),
+    path('stores/', views.stores, name="stores"),
 ]

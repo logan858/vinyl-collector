@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Vinyl
+from .models import Vinyl, StoreTwo
 from django.views.generic import ListView
 from .forms import ListenForm
 # Create your views here.
@@ -18,9 +18,12 @@ def about(request):
 def vinyl_details(request, vinyl_id):
   found_vinyl = Vinyl.objects.get(id=vinyl_id)
   listen_form = ListenForm()
+  stores_not_carrying_vinyl = StoreTwo.objects.exclude(id__in = found_vinyl.stores.all().values_list('id'))
+  print(stores_not_carrying_vinyl)
   return render(request, 'vinyls/details.html', {
     'vinyl': found_vinyl,
     'listen_form': listen_form,
+    'stores_not_carried': stores_not_carrying_vinyl,
   })
 
 def vinyl_delete(request, vinyl_id):
@@ -64,3 +67,13 @@ def add_listen(request, vinyl_id):
     new_listen.vinyl_id = vinyl_id
     new_listen.save()
   return redirect(f"/{vinyl_id}", vinyl_id=vinyl_id)
+
+def assoc_store(request, vinyl_id, store_id):
+  Vinyl.objects.get(id=vinyl_id).stores.add(store_id)
+  return redirect(f'/{vinyl_id}')
+
+def stores(request):
+  stores = StoreTwo.objects.all()
+  return render(request, 'stores.html', {
+    'stores': stores,
+  })

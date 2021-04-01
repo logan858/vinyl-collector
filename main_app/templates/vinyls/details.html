@@ -44,6 +44,49 @@
     </table>
   </div>
 </div>
+
+<hr>
+<div class="row">
+  <div class="col s6">
+    <h3>{{ vinyl.title }}'s Availability</h3>
+    {% if vinyl.stores.count %}
+      {% for v in vinyl.stores.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              {{ v.name }}
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>No current availability</h5>
+    {% endif %}
+  </div>
+  <div class="col s6">
+    <h3>Add availability</h3>
+    {% if stores_not_carried.count %}
+      {% for store in stores_not_carried.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+              {{ store.name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_store' vinyl.id store.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>All stores carry album</h5>
+    {% endif %}
+  </div>
+  <!-- Available toys will come after this line -->
+</div>
 <script>
   var dateEl = document.getElementById('id_date');
   M.Datepicker.init(dateEl, {

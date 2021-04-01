@@ -1,6 +1,11 @@
 from django.db import models
-
 # Create your models here.
+
+class StoreTwo(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
 
 class Vinyl(models.Model):
     title = models.CharField(max_length=100)
@@ -11,6 +16,7 @@ class Vinyl(models.Model):
         return self.title
     def listen_count(self):
         return len(self.listen_set.all())
+    stores = models.ManyToManyField(StoreTwo)
 
 class Listen(models.Model):
   date = models.DateField()

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Store list</h1>
+    <hr/>
+    {% for store in stores %}
+    <div class="card">
+        <div class="card-content">
+        {{ store.name }} - 
+        {{ store.location }}
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
