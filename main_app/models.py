@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 # Create your models here.
 
 class StoreTwo(models.Model):
@@ -17,6 +18,7 @@ class Vinyl(models.Model):
     def listen_count(self):
         return len(self.listen_set.all())
     stores = models.ManyToManyField(StoreTwo)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Listen(models.Model):
   date = models.DateField()
